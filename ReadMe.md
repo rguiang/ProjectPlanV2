@@ -40,7 +40,7 @@ To add new project, click the "Add Project" in the index page to redirect you to
 
 There are 3 tools(Edit, Info, Delete) that you can use for every projects.
 ```
-#### Project
+Project List
 
 Edit - Click the Edit to update the Project's name and desciption.
 Info - Click the Info to view the Information of the project together with the task and task creation.
