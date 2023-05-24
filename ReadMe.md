@@ -34,4 +34,15 @@ Alternatively you can use the Spring Boot Maven plugin like so:
 mvn spring-boot:run
 ```
 
-Once the application starts, open http://localhost:8080 on your browser. 
+Once the application starts, open http://localhost:8080 on your browser to access the index page of the application.
+
+To add new project, click the "Add Project" in the index page to redirect you to the new project creation page that will required you to input the project name and description.
+
+There are 3 tools(Edit, Info, Delete) that you can use for every projects.
+```
+#### Project
+
+Edit - Click the Edit to update the Project's name and desciption.
+Info - Click the Info to view the Information of the project together with the task and task creation.
+Delete - Click the Delete to remove/delete the project.
+```
