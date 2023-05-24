@@ -38,7 +38,7 @@ Once the application starts, open http://localhost:8080 on your browser to acces
 
 To add new project, click the "Add Project" in the index page to redirect you to the new project creation page that will required you to input the project name and description.
 
-There are 3 tools(Edit, Info, Delete) that you can use for every projects.
+There are 3 tools(Edit, Info, Delete) that you can use for every projects in the project lists.
 ```
 Project List
 
@@ -46,3 +46,5 @@ Edit - Click the Edit to update the Project's name and desciption.
 Info - Click the Info to view the Information of the project together with the task and task creation.
 Delete - Click the Delete to remove/delete the project.
 ```
+
+
