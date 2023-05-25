@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html
+        layout:include="layouts/base :: base-template"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/xhtml"
+        lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset = "ISO-8859-1" />
+    <link href = "/css/bootstrap.css" rel = "stylesheet"/>
+    <link href = "/css/bootstrap.min.css" rel = "stylesheet"/>
+    <link href = "/css/bootstrap-theme.css" rel = "stylesheet"/>
+    <link href = "/css/bootstrap-theme.min.css" rel = "stylesheet"/>
+    <title>Spring Boot Application</title>
+</head>
+<body>
+<div class="jumbotron text-center">
+    <h1>My Project Plan</h1>
+</div>
+<div class="container">
+
+    <div class="starter-template">
+        <h1>Edit Project</h1>
+    </div>
+    <div th:switch="${editStatus}">
+        <div th:case="'success'" class="panel-success panel">
+            <div class="bg-success panel-heading">Congratulation!!</div>
+            <div class="panel-body"><div th:text="${editStatus}"></div></div>
+        </div>
+        <div th:case="'failed'" class="panel-danger panel">
+            <div class="bg-success panel-heading">Sorry!!</div>
+            <div class="panel-body"><div th:text="${editStatus}"></div></div>
+        </div>
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+        <form
+                id="edit-project-form"
+                th:action="@{'/edit/save'}"
+                th:object="${editedTask}"
+                method="post">
+            <div class="form-group">
+                <label for="taskId">Task Id</label>
+                <input th:value="${task.id}" type="text" class="form-control" id="taskId" name="taskid" placeholder="Task Id" disabled>
+                <input th:value="${task.id}" type="text" class="form-control hidden" name="id" placeholder="Task Id" >
+            </div>
+            <div class="form-group">
+                <label for="taskName">Task Name</label>
+                <input th:value="${task.taskName}" type="text" class="form-control" id="taskName" name="taskName" placeholder="Task Name" required>
+            </div>
+            <div class="form-group">
+                <label for="taskDescription">Task Description</label>
+                <input th:value="${task.description}" type="text" class="form-control" id="taskDescription" name="description" placeholder="Task Description" required>
+            </div>
+            <div class="form-group">
+                <label for="taskDuration">Task Duration</label>
+                <input th:value="${#strings.substring(task.duration,0,#strings.length(task.duration)-2)}" type="text" pattern="\d+"
+                       title="Task duration should only contain whole number" class="form-control" id="taskDuration" name="duration" placeholder="Task Duration" required>
+            </div>
+            <div th:switch="${noDependencies}">
+
+                <div th:case="true" class="form-group">
+                    <label for="taskStartDate">Date Start</label>
+                    <input th:value="${task.startDate}" type="datetime-local" class="form-control" id="taskStartDate" name="startDate" placeholder="Task Start Date" required>
+                </div>
+            </div>
+            <button type="submit" id="editProject" class="btn btn-success">Save</button>
+            <a th:href="@{'/project/info/'+${projectId}}" class="btn btn-danger">Cancel</a>
+        </form>
+    </div>
+</div><!-- /.container -->
+
+</body>
+</html>
