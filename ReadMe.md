@@ -47,4 +47,20 @@ Info - Click the Info to view the Information of the project together with the t
 Delete - Click the Delete to remove/delete the project.
 ```
 
+In the project info page, There is a button for the Task creation to be able to crate task for the chosen project and task list at the bottom of the page.
 
+There is also 3 tools((Edit, Info, Delete)) that you can use to update the task.
+```
+Task list
+
+Edit - Click the Edit to update the task.
+Info - Click the Info to view the information of the task.
+Delete - Click the Delete to remove/delete the task.
+```
+Note: 
+```
+1. In you can only update the start date of tasks that doesn't have dependency.
+2. there is ony 8 hours can be allowed per day(8:00 am to 16:00pm).
+```
+
+In the task info page, you are able to see the list of dependency of the task and also in this page you are able to add or delete a dependency task.
