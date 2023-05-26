@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html
+        layout:include="layouts/base :: base-template"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/xhtml"
+        lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset = "ISO-8859-1" />
+    <script src="../../../../js/bootstrap.js"></script>
+    <script src="../../../../js/jquery.min.js"></script>
+    <script src="../../../../js/bootstrap.min.js"></script>
+    <link href = "../../../../css/bootstrap.css" rel = "stylesheet"/>
+    <link href = "../../../../css/bootstrap.min.css" rel = "stylesheet"/>
+    <link href = "../../../../css/bootstrap-theme.css" rel = "stylesheet"/>
+    <link href = "../../../../css/bootstrap-theme.min.css" rel = "stylesheet"/>
+    <title>Spring Boot Application</title>
+</head>
+<body>
+<div class="jumbotron text-center">
+    <h1>My Project Plan</h1>
+</div>
+<div class="container">
+    <div class="starter-template">
+        <div th:switch="${deletedTask}">
+            <div th:case="'success'" class="panel-success panel">
+                <div class="bg-success panel-heading">Congratulation</div>
+                <div class="panel-body"><span th:text="${deletedTask}"></span>!!</div>
+            </div>
+            <div th:case="'failed'" class="panel-danger panel">
+                <div class="bg-success panel-heading">Sorry!!</div>
+                <div class="panel-body"><span th:text="${deletedTask}"></span>!!</div>
+            </div>
+        </div>
+        <h1>Task Info <span class="pull-right"><a th:href="@{'/project/info/'+${task.project.id}}"><button type="button" class="btn btn-light"><span class="glyphicon glyphicon-arrow-left"> Back</span></button></a></span></h1>
+    </div>
+    <div class="col-md-12">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p><b>Task Id: </b><span th:text="${task.id}"></span></p>
+                    <p><b>Task Name: </b><span th:text="${task.taskName}"></span></p>
+                    <p><b>Task Description: </b><span th:text="${task.description}"></span></p>
+                    <p><b>Date Created: </b><span th:text="${task.created_date}"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="starter-template">
+            <h1>Tasks</h1>
+        </div>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                <form
+                        id="add-dependency-form"
+                        th:action="@{'/save/dependencies'}"
+                        th:object="${dependency}"
+                        method="post">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Project Name</th>
+                        <th>Description</th>
+                        <th>Duration/Hr</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                            <tr th:each="tasks: ${projectTask}">
+                                <div th:unless ="${tasks.id} eq ${task.id}">
+                                    <td th:text="${tasks.id}"></td>
+                                    <td th:text="${tasks.taskName}"></td>
+                                    <td th:text="${tasks.description}"></td>
+                                    <td th:text="${tasks.duration}"></td>
+                                    <td th:text="${#strings.replace(tasks.startDate,'T',' ')}"></td>
+                                    <td th:text="${#strings.replace(tasks.endDate,'T',' ')}"></td>
+                                    <td>
+                                        <div class="checkbox">
+                                            <label><input type="checkbox" name="dependencies[]" th:value="${tasks.id}"></label>
+                                        </div>
+                                    </td>
+
+                                </div>
+                            </tr>
+                    </tbody>
+                </table>
+                    <input type="text" name="id" th:value="${task.id}" hidden>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-success">Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
