@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html
+        layout:include="layouts/base :: base-template"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns="http://www.w3.org/1999/xhtml"
+        lang="en" xmlns:layout="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset = "ISO-8859-1" />
+    <script src="../../js/bootstrap.js"></script>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <link href = "../../css/bootstrap.css" rel = "stylesheet"/>
+    <link href = "../../css/bootstrap.min.css" rel = "stylesheet"/>
+    <link href = "../../css/bootstrap-theme.css" rel = "stylesheet"/>
+    <link href = "../../css/bootstrap-theme.min.css" rel = "stylesheet"/>
+    <title>Spring Boot Application</title>
+</head>
+<body>
+<div class="jumbotron text-center">
+    <h1>My Project Plan</h1>
+</div>
+<div class="container">
+    <div class="starter-template">
+        <div th:switch="${deletedTask}">
+            <div th:case="'success'" class="panel-success panel">
+                <div class="bg-success panel-heading">Congratulation</div>
+                <div class="panel-body"><span th:text="${deletedTask}"></span>!!</div>
+            </div>
+            <div th:case="'failed'" class="panel-danger panel">
+                <div class="bg-success panel-heading">Sorry!!</div>
+                <div class="panel-body"><span th:text="${deletedTask}"></span>!!</div>
+            </div>
+        </div>
+        <h1>Task Info <span class="pull-right"><a th:href="@{'/project/info/'+${task.project.id}}"><button type="button" class="btn btn-light"><span class="glyphicon glyphicon-arrow-left"> Back</span></button></a></span></h1>
+    </div>
+    <div class="col-md-12">
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <p><b>Task Id: </b><span th:text="${task.id}"></span></p>
+                    <p><b>Task Name: </b><span th:text="${task.taskName}"></span></p>
+                    <p><b>Task Description: </b><span th:text="${task.description}"></span></p>
+                    <p><b>Date Created: </b><span th:text="${#strings.substring(#strings.replace(task.created_date,'T',' '),0,16)}"></span></p>
+                    <p><b>Estemated End Date: </b><span th:text="${#strings.replace(task.endDate,'T',' ')}"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="starter-template">
+            <h1>Dependencies <a th:href="@{'/add/task/dependency/'+${task.id}+'/'+${task.project.id}}"><button type="button" class="btn btn-primary">Add Task Dependency</button></a></h1>
+        </div>
+        <div id="table-wrapper">
+            <div id="table-scroll">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Project Name</th>
+                        <th>Description</th>
+                        <th>Duration/Hr</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Tools</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dependencies: ${task.dependencies}">
+
+                        <form
+                                th:action="@{'/delete/dependencies/'+${task.id}+'/'+${dependencies.id}}"
+                                th:object="${task}"
+                                method="post">
+                        <td th:text="${dependencies.id}"></td>
+                        <td th:text="${dependencies.taskName}"></td>
+                        <td th:text="${dependencies.description}"></td>
+                        <td th:text="${dependencies.duration}"></td>
+                        <td th:text="${#strings.replace(dependencies.startDate,'T',' ')}"></td>
+                        <td th:text="${#strings.replace(dependencies.endDate,'T',' ')}"></td>
+                        <td>
+                            <button type="submit" class="btn btn-danger">Delete</button>
+
+                            <!--modal-->
+                            <div class="modal fade" th:attr="id=${dependencies.id}+${task.id}" role="dialog">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">Please Confirm.</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Are you sure you want to delete</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <form th:action="@{'/delete/dependencies/'+${dependencies.id}+'/'+${task.id}}" method="post">
+                                                <button type="submit" class="btn btn-success">Confirm</button>
+                                                <button type="button" class="btn  btn-danger" data-dismiss="modal">Close</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        </form>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
