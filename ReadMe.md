@@ -48,6 +48,20 @@ Delete - Click the Delete to remove/delete the project.
 ```
 
 In the project info page, There is a button for the Task creation to be able to crate task for the chosen project and task list at the bottom of the page.
+And you can view the details of the project below.
+
+```
+Project Details: 
+
+Project Id:
+Project Name:
+Project Description:
+Date Created: 
+Date Started: 
+Estemated End Date:
+Project Duration: 
+```
+
 
 There is also 3 tools((Edit, Info, Delete)) that you can use to update the task.
 ```
